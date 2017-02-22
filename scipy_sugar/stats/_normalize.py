@@ -16,8 +16,16 @@ def quantile_gaussianize(x):
 
     Returns:
         Gaussian-normalized values.
+
+    Example:
+
+    .. doctest::
+
+        >>> from scipy_sugar.stats import quantile_gaussianize
+        >>> print(quantile_gaussianize([-1, 0, 2]))
+        [-0.67448975  0.          0.67448975]
     """
-    x = asarray(x)
+    x = asarray(x, float)
     ok = isfinite(x)
     x[ok] *= -1
     y = empty_like(x)
