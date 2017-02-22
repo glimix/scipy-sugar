@@ -9,6 +9,14 @@ from scipy.stats import rankdata
 from scipy.stats import norm
 
 def quantile_gaussianize(x):
+    """Normalize a sequence of values via rank and Normal c.d.f.
+
+    Args:
+        x (array_like): sequence of values.
+
+    Returns:
+        Gaussian-normalized values.
+    """
     x = asarray(x)
     ok = isfinite(x)
     x[ok] *= -1
