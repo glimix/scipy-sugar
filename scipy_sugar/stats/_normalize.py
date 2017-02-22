@@ -25,7 +25,7 @@ def quantile_gaussianize(x):
         >>> print(quantile_gaussianize([-1, 0, 2]))
         [-0.67448975  0.          0.67448975]
     """
-    x = asarray(x, float)
+    x = asarray(x, float).copy()
     ok = isfinite(x)
     x[ok] *= -1
     y = empty_like(x)
