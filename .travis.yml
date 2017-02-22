@@ -1,0 +1,30 @@
+language: python
+sudo: required
+dist: trusty
+git:
+  depth: 5
+matrix:
+  include:
+  - os: linux
+    python: '2.7'
+  - os: linux
+    python: '3.5'
+  - os: linux
+    python: '3.6'
+script:
+- pip install pypandoc
+- python -c "from pypandoc import download_pandoc as dp; dp(targetfolder='~/bin/');"
+- export PATH=~/bin:$PATH
+- python setup.py sdist
+- pip install dist/`ls dist | grep -i -E '\.(gz)$' | head -1`
+- pushd /
+- python -c "import scipy_sugar; scipy_sugar.test()"
+- popd
+notifications:
+  email: false
+deploy:
+  provider: pypi
+  user: dhorta
+  on:
+    distributions: sdist bdist_wheel
+    repo: glimix/scipy-sugar
