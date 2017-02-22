@@ -11,10 +11,9 @@ matrix:
     python: '3.5'
   - os: linux
     python: '3.6'
+before_install:
+  - travis/install_pandoc.sh
 script:
-- pip install pypandoc
-- python -c "from pypandoc import download_pandoc as dp; dp(targetfolder='~/bin/');"
-- export PATH=~/bin:$PATH
 - python setup.py sdist
 - pip install dist/`ls dist | grep -i -E '\.(gz)$' | head -1`
 - pushd /
@@ -24,6 +23,7 @@ notifications:
   email: false
 deploy:
   provider: pypi
+  skip_upload_docs: true
   user: dhorta
   password:
     secure: YUuA0B8+1SNpzt74hwX416e1URQHSPkKo7iF6Ky1jxfC7Zjl80/dB2y/p58DVY6qa56jiJUaM1mKCOMyqZf6ft76GUUw5Q78vtskB8wONFRw/g3S8K7lYtK62xD10QF9tmsmkojkvwZefIuWPQrgqjclDnt9DHV0OLbEnERs+DKOTazTBkZnokK44W+jsGwoDmWwPibY71UNBK8BecBG4iOAznzsGAOLZTo1x5pGrfzU/Qvets90HzF0sbGpPGhniD3zKFcrWf+22SVv2vIz2LCE0nMs03ZR7uIe/VElp1T8CIhjuXjsAoTXbg/gD4/JIt0I7deQY3iYj2UKZUB8POitycNe5qahDCpKYatyRWgBo7d94Kofa6D0oYCLGkClz4PQV9kI5JyAXZAJlhdXS3l7Lau/z45lxtilDNj6eobXUgKOsxhsdIFK9oV3JY5xVFGD5JF5TTi3fpbZ0pqPdp7grznvnpMaxizWprlkdzT3FYWOTcydUZcEjVTHALp9xNxRrfG6Di+RhBypU53VzNooFPWdVzP2uGbbP8zdg/YlhjgVSGDxJOIOxGupV2IAi2fZqgvuJHX3ZSCblt4EN7ihPIa9q55FxMisXUKkrWFxGcfkUeifah7BhjRjAECMaJFgk/K1UavIqkDFajehjNGp+wlQIfjxoVR6C63VOG8=
