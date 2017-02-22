@@ -26,7 +26,7 @@ def setup_package():
 
     metadata = dict(
         name='scipy-sugar',
-        version='1.0.0.dev0',
+        version='1.0.0.rc0',
         maintainer="Danilo Horta",
         maintainer_email="horta@ebi.ac.uk",
         license="MIT",
