@@ -1,7 +1,7 @@
 # scipy-sugar
 
 [![PyPI-License](https://img.shields.io/pypi/l/scipy-sugar.svg?style=flat-square)](https://pypi.python.org/pypi/scipy-sugar/)
-[![PyPI-Version](https://img.shields.io/pypi/v/scipy-sugar.svg?style=flat-square)](https://pypi.python.org/pypi/scipy-sugar/) [![Anaconda-Version](https://anaconda.org/conda-forge/scipy-sugar/badges/version.svg)](https://anaconda.org/conda-forge/scipy-sugar) [![Anaconda-Downloads](https://anaconda.org/conda-forge/scipy-sugar/badges/downloads.svg)](https://anaconda.org/conda-forge/scipy-sugar) [![Documentation Status](https://readthedocs.org/projects/scipy-sugar/badge/?style=flat-square&version=latest)](https://scipy-sugar.readthedocs.io/en/latest/)
+[![PyPI-Version](https://img.shields.io/pypi/v/scipy-sugar.svg?style=flat-square)](https://pypi.python.org/pypi/scipy-sugar/) [![Anaconda-Version](https://anaconda.org/conda-forge/scipy-sugar/badges/version.svg)](https://anaconda.org/conda-forge/scipy-sugar) [![Anaconda-Downloads](https://anaconda.org/conda-forge/scipy-sugar/badges/downloads.svg)](https://anaconda.org/conda-forge/scipy-sugar) [![Documentation Status](https://readthedocs.org/projects/scipy-sugar/badge/?style=flat-square&version=latest)](https://scipy-sugar.readthedocs.io/)
 
 Missing SciPy functionalities.
 
