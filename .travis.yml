@@ -1,33 +1,49 @@
 language: python
 sudo: required
 dist: trusty
-cache: pip
+services: docker
 git:
   depth: 5
+cache:
+  pip: true
+  directories:
+  - "$HOME/bin"
+  - "$HOME/.download"
 matrix:
   include:
-  - os: linux
-    python: '2.7'
-  - os: linux
-    python: '3.5'
-  - os: linux
-    python: '3.6'
+  - python: 2.7
+  - python: 3.5
+  - python: 3.6
+  - env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
+  - os: osx
+    language: generic
+    env: PYENV=py27
+  - os: osx
+    language: generic
+    env: PYENV=py35
+  - os: osx
+    language: generic
+    env: PYENV=py36
 before_install:
-  - travis/install_pandoc.sh
+- travis_retry bash <(curl -s https://raw.githubusercontent.com/limix/travis-tools/master/get-travis-tools.sh)
+- travis_retry travis/before-install.sh
 script:
-- python setup.py sdist
-- pip install dist/`ls dist | grep -i -E '\.(gz)$' | head -1`
-- pushd /
-- python -c "import scipy_sugar; scipy_sugar.test()"
-- popd
+- travis_retry travis/script.sh
+after_success:
+- travis_retry travis/after-success.sh
 notifications:
   email: false
+env:
+  global:
+    secure: bstlWhD2AA7TJmy1Tv1OfMW8gogwCCd0nSxCFk3QMBC2/o33K55AQjZkyG/kmQWjO2mduWQmx9SdXshJzTT2SRhJW53VO2Op4YBJO4l57NPE9R3ggcIGsw4vsAXBCVkRyQRxhMmadRKajHWJjkf8IfbVKb4RRIqJT/dQCcD7kOhgGHKLI9/eBCoIVkZLFCdhEeGKaHQxeTqOOmmIhjAFIXh0sCkM4Av3UHR72/eKrLOR4iyOECfLXFFVR5jMcDwqFrcqFTGVBaAA7UZtJuO8qVMDb/qi9HfCTKVotj8vYFM32nu037Y+Mf1IH5aW/Z4oiscsxARY7Diq6le2lFBG96IvzLdeUElLCZO8zzAfRiUryOAorDH5PbwbOPG0t/WNK8ys5RNcd95rL/h4haKn3BrcOhWhaUCerC1uxqbOQO7mknz52GjPlT+3MHjymqmLBBDKRY2fXfLVk1jUnaVC0ZuXHscoKr8f8e4wXkRrznYy2RRnm3k7X2X7kLCUN0FmxfMgsQK12yPQtKgBGo/0lnTMFEWBnHEDLipnFFYMFNlnLr4EN7yk1un2R1m1W0HIb/plqerULnPlp/aH/QpJyVSQo6T5b4WELHirqnPZTQO8wDQPajyWQAqc83D3yD+X8WXZYOGTe5TwyvS7byAw8udxZAgocJ2C19idohqaGHA=
 deploy:
   provider: pypi
-  skip_upload_docs: true
   user: dhorta
   password:
-    secure: YUuA0B8+1SNpzt74hwX416e1URQHSPkKo7iF6Ky1jxfC7Zjl80/dB2y/p58DVY6qa56jiJUaM1mKCOMyqZf6ft76GUUw5Q78vtskB8wONFRw/g3S8K7lYtK62xD10QF9tmsmkojkvwZefIuWPQrgqjclDnt9DHV0OLbEnERs+DKOTazTBkZnokK44W+jsGwoDmWwPibY71UNBK8BecBG4iOAznzsGAOLZTo1x5pGrfzU/Qvets90HzF0sbGpPGhniD3zKFcrWf+22SVv2vIz2LCE0nMs03ZR7uIe/VElp1T8CIhjuXjsAoTXbg/gD4/JIt0I7deQY3iYj2UKZUB8POitycNe5qahDCpKYatyRWgBo7d94Kofa6D0oYCLGkClz4PQV9kI5JyAXZAJlhdXS3l7Lau/z45lxtilDNj6eobXUgKOsxhsdIFK9oV3JY5xVFGD5JF5TTi3fpbZ0pqPdp7grznvnpMaxizWprlkdzT3FYWOTcydUZcEjVTHALp9xNxRrfG6Di+RhBypU53VzNooFPWdVzP2uGbbP8zdg/YlhjgVSGDxJOIOxGupV2IAi2fZqgvuJHX3ZSCblt4EN7ihPIa9q55FxMisXUKkrWFxGcfkUeifah7BhjRjAECMaJFgk/K1UavIqkDFajehjNGp+wlQIfjxoVR6C63VOG8=
+    - secure: BCkQ+XcnLTNRDzEM5MnT/Xa5CT1LqmmohE4KvnmE0MfOPDKiunE2AwZm2qX30Ka/vMFjExIl+hMy/2IZRrFoem4/WSBKC1mZFD/ihgo9CyVOv6r5vxiXa0vTJTicqUP6DZ5b1aNBjqNrfwjRoihkQsGcmLClXAQPFDWJBSkdgecNODrLUhJhCy2T2RUB/EPtmkgFLJ3CBNvBuHwhtqbVs1sLmbcfZy773keJ5mCbznZFpKXwNLQNI9GPs9uMiLv2jHvNZQvRuYMkuT2kDmzJbInVj/Sj3aSYg5rPOggUqFpGej/oChZLlYwlybkfi0hqNM8kGTw5aVwfDJZYF7Uu5vWGmuzTorEaqVFMLc95C168UTcIyGbEFeu4TDw+zPQvMkaXctrJmxdyQOAvPNrPBbPpMt1tPtxpempj1gyrNhBoz58EOfCawkS4dTRjtA0DtbfREq88qj142YO1Ip3T3JaPTrfTLu5kH2n/B3yuZJ4NUadbxTIKnUgkPsPYb9iS2ui2OSzOP6dXnhEhSBroNFvvXd/Pk/RFenQjx9eETGYlDyOJ+e5N3D/tcpqBZNQDzCsVlNuk6Hu5j9ofhimLPqYqpz5VPsCTPOfa892jRCR0LN/m7LmvotX+okzrax4t+IqVB3wrv+dVshBgKQG0PsxL95a7adAUKLepkw9NNRw=
+    - PKG_NAME=scipy_sugar
+    - PY_DEPS="scipy"
   on:
-    distributions: sdist bdist_wheel
-    repo: glimix/scipy-sugar
+    tags: true
+    repo: limix/scipy-sugar
+    branch: master

@@ -21,18 +21,18 @@ def setup_package():
     pytest_runner = ['pytest-runner'] if needs_pytest else []
 
     setup_requires = [] + pytest_runner
-    install_requires = ['numpy>=1.9', 'scipy>=0.17.1']
+    install_requires = ['numpy>=1.9', 'scipy>=0.18']
     tests_require = ['pytest>=3']
 
     metadata = dict(
         name='scipy-sugar',
-        version='1.0.1',
+        version='1.0.2',
         maintainer="Danilo Horta",
         maintainer_email="horta@ebi.ac.uk",
         license="MIT",
         description="Missing SciPy functionalities.",
         long_description=long_description,
-        url='http://github.com/glimix/scipy-sugar',
+        url='https://github.com/limix/scipy-sugar',
         packages=find_packages(),
         zip_safe=True,
         install_requires=install_requires,
