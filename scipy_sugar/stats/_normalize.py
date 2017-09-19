@@ -1,12 +1,7 @@
-from __future__ import division
-from __future__ import absolute_import
+from __future__ import absolute_import, division
 
-from numpy import empty_like
-from numpy import isfinite
-from numpy import asarray
+from numpy import asarray, empty_like, isfinite
 
-from scipy.stats import rankdata
-from scipy.stats import norm
 
 def quantile_gaussianize(x):
     """Normalize a sequence of values via rank and Normal c.d.f.
@@ -25,6 +20,9 @@ def quantile_gaussianize(x):
         >>> print(quantile_gaussianize([-1, 0, 2]))
         [-0.67448975  0.          0.67448975]
     """
+    from scipy.stats import rankdata
+    from scipy.stats import norm
+
     x = asarray(x, float).copy()
     ok = isfinite(x)
     x[ok] *= -1

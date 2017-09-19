@@ -1,14 +1,12 @@
 language: python
-sudo: required
-dist: trusty
 services: docker
 git:
   depth: 5
 cache:
   pip: true
   directories:
-  - "$HOME/bin"
-  - "$HOME/.download"
+  - $HOME/bin
+  - $HOME/.download
 matrix:
   include:
   - python: 2.7
@@ -24,23 +22,28 @@ before_install:
 - travis_retry bash <(curl -s https://raw.githubusercontent.com/limix/travis-tools/master/get-travis-tools.sh)
 - travis_retry travis/before-install.sh
 install:
-    - travis_retry travis/install.sh
+- travis_retry travis/install.sh
 script:
 - travis_retry travis/script.sh
 after_success:
 - travis_retry travis/after-success.sh
 notifications:
-  email: false
+  email:
+    recipients:
+      - danilo.horta@gmail.com
+    on_success: change
+    on_failure: always
 deploy:
   provider: pypi
+  server: https://upload.pypi.org/legacy/
   user: dhorta
   password:
-    - secure: BCkQ+XcnLTNRDzEM5MnT/Xa5CT1LqmmohE4KvnmE0MfOPDKiunE2AwZm2qX30Ka/vMFjExIl+hMy/2IZRrFoem4/WSBKC1mZFD/ihgo9CyVOv6r5vxiXa0vTJTicqUP6DZ5b1aNBjqNrfwjRoihkQsGcmLClXAQPFDWJBSkdgecNODrLUhJhCy2T2RUB/EPtmkgFLJ3CBNvBuHwhtqbVs1sLmbcfZy773keJ5mCbznZFpKXwNLQNI9GPs9uMiLv2jHvNZQvRuYMkuT2kDmzJbInVj/Sj3aSYg5rPOggUqFpGej/oChZLlYwlybkfi0hqNM8kGTw5aVwfDJZYF7Uu5vWGmuzTorEaqVFMLc95C168UTcIyGbEFeu4TDw+zPQvMkaXctrJmxdyQOAvPNrPBbPpMt1tPtxpempj1gyrNhBoz58EOfCawkS4dTRjtA0DtbfREq88qj142YO1Ip3T3JaPTrfTLu5kH2n/B3yuZJ4NUadbxTIKnUgkPsPYb9iS2ui2OSzOP6dXnhEhSBroNFvvXd/Pk/RFenQjx9eETGYlDyOJ+e5N3D/tcpqBZNQDzCsVlNuk6Hu5j9ofhimLPqYqpz5VPsCTPOfa892jRCR0LN/m7LmvotX+okzrax4t+IqVB3wrv+dVshBgKQG0PsxL95a7adAUKLepkw9NNRw=
+    secure: dKPhQxlgHMxwNZmDt8gbDxLOc2plbwhYBxlY5PXS+fGtIm+v8aMbWkwhiIRCyeUjo0AnYm/+L2RXWL++zetfaPJ5pq3L1wWL8YmjA7UnC4+tsySqdHRRudbDyKBvrhfx2ON8d7JQlw8jJFHWNZJnFA1Vlx6u6PUNp+R0r+LrrawrFlYTPsRBz7GOcy2sj0/sD70GNUP3k3aca58nRDnXb1v5IkUlTM9l4Tx7oYLzK9JjPxMQkLAG+ONikkIpC4xu3TkXyAdUAGyNTFSbhINW4ehILutz/oNNhZeCuVA9qHeAw00BXzjrYBRdHt44WZW1oS+9uV2MU+A/3XeMAjIAc5w8SZ/o+XAhdY5PrWEcI3IE0Nm3aazvMHH6xVBVoWG549GGIY83sQk80Rha4ihSKKOowib0tIa32ownIzCgmQ6xojDV6WD7anNioyAtikVOo+hYmcnU6CoBmPQTVAE19u/W0LtwIihMWGuKQtmVdbU24prWrZA8dGJ3uBrDVfiuqCC3ozS5ZR9a4jn6JCMjH/hGUibB0yqMY/B8HgZtOP70g8dMku+2Z6EYbugKet6C8gOIsm79TV3nYcpChAl/fhWFhx52/ZcnVVup1OdDQO+uEawm8UG3ESjAVCxZURGWnUl0QIosWd150eqLR8SwQ+GbVqqD3YKGxP3livMnRvw=
   on:
-    tags: true
     repo: limix/scipy-sugar
     branch: master
+    tags: true
 env:
   global:
-    - secure: bstlWhD2AA7TJmy1Tv1OfMW8gogwCCd0nSxCFk3QMBC2/o33K55AQjZkyG/kmQWjO2mduWQmx9SdXshJzTT2SRhJW53VO2Op4YBJO4l57NPE9R3ggcIGsw4vsAXBCVkRyQRxhMmadRKajHWJjkf8IfbVKb4RRIqJT/dQCcD7kOhgGHKLI9/eBCoIVkZLFCdhEeGKaHQxeTqOOmmIhjAFIXh0sCkM4Av3UHR72/eKrLOR4iyOECfLXFFVR5jMcDwqFrcqFTGVBaAA7UZtJuO8qVMDb/qi9HfCTKVotj8vYFM32nu037Y+Mf1IH5aW/Z4oiscsxARY7Diq6le2lFBG96IvzLdeUElLCZO8zzAfRiUryOAorDH5PbwbOPG0t/WNK8ys5RNcd95rL/h4haKn3BrcOhWhaUCerC1uxqbOQO7mknz52GjPlT+3MHjymqmLBBDKRY2fXfLVk1jUnaVC0ZuXHscoKr8f8e4wXkRrznYy2RRnm3k7X2X7kLCUN0FmxfMgsQK12yPQtKgBGo/0lnTMFEWBnHEDLipnFFYMFNlnLr4EN7yk1un2R1m1W0HIb/plqerULnPlp/aH/QpJyVSQo6T5b4WELHirqnPZTQO8wDQPajyWQAqc83D3yD+X8WXZYOGTe5TwyvS7byAw8udxZAgocJ2C19idohqaGHA=
+    - secure: enuW0ZSAo3Wpw58yk6lcSrLP6wgA9zT3/us5nosY/g6UF3//WjdslIB2qfuLv2gCZ5cH4Q2WDXRcXVijnqrruMHHjCpaXWWC5GGVjYWqtdc1OkIIFSKsxqKIVc8ykK7unONgH//vYmQc17M50li/bUveBz1tfnR8empQGtDttNuul313R5o6YLPtWzjJvd/FL1kX1ELa0DMha+pOCBhPLYZZMnxnYtaNqZQYUHnQKA+pnFYQ0icuSfCIbe0LsQShdz8zAuv6F0MXh+f0/kP1Hq74BZORA44zqlpJRARM98ov/jdj65TNA6+D8tVA3ksJlYzxlmA9dJ6LsIU6Y9cncfGis1UsEyP/j/MfJxw3O1KPoVDC+7QLWbbe7zLVK3HLRmhGZk6yWB+X+S01IiJdRqY++A1iJO7Jrkb3eFp/d9i8iDYiFgCHbItbHeKCY0f2RuR4TEwiaInBfpVsgINWJrOsw3W9Y/HFeF1RzvHVjqHFToruoz1i7ZPTZsUWJdVYG4qyEOs8BNdmPlQTzLp3lOtcULP91Bze+s8IlV4m3GPC4I6CXrIiI7+hbEsWhjpNJ1fsJIQVlGFnQzHT2F52jXWOrEKB7JeZx6emtZgOeQq8+dcXsMHU7x7SySalW7Tf+Qq4GjF1tYcH1q4KNuYUSuV7D7hI3yl8S0GKvLha5k0=
     - PKG_NAME=scipy_sugar
