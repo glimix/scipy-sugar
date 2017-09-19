@@ -5,8 +5,8 @@ git:
 cache:
   pip: true
   directories:
-  - $HOME/bin
-  - $HOME/.download
+  - "$HOME/bin"
+  - "$HOME/.download"
 matrix:
   include:
   - python: 2.7
@@ -30,20 +30,18 @@ after_success:
 notifications:
   email:
     recipients:
-      - danilo.horta@gmail.com
+    - danilo.horta@gmail.com
     on_success: change
     on_failure: always
 deploy:
-  provider: pypi
-  server: https://upload.pypi.org/legacy/
-  user: dhorta
-  password:
-    secure: dKPhQxlgHMxwNZmDt8gbDxLOc2plbwhYBxlY5PXS+fGtIm+v8aMbWkwhiIRCyeUjo0AnYm/+L2RXWL++zetfaPJ5pq3L1wWL8YmjA7UnC4+tsySqdHRRudbDyKBvrhfx2ON8d7JQlw8jJFHWNZJnFA1Vlx6u6PUNp+R0r+LrrawrFlYTPsRBz7GOcy2sj0/sD70GNUP3k3aca58nRDnXb1v5IkUlTM9l4Tx7oYLzK9JjPxMQkLAG+ONikkIpC4xu3TkXyAdUAGyNTFSbhINW4ehILutz/oNNhZeCuVA9qHeAw00BXzjrYBRdHt44WZW1oS+9uV2MU+A/3XeMAjIAc5w8SZ/o+XAhdY5PrWEcI3IE0Nm3aazvMHH6xVBVoWG549GGIY83sQk80Rha4ihSKKOowib0tIa32ownIzCgmQ6xojDV6WD7anNioyAtikVOo+hYmcnU6CoBmPQTVAE19u/W0LtwIihMWGuKQtmVdbU24prWrZA8dGJ3uBrDVfiuqCC3ozS5ZR9a4jn6JCMjH/hGUibB0yqMY/B8HgZtOP70g8dMku+2Z6EYbugKet6C8gOIsm79TV3nYcpChAl/fhWFhx52/ZcnVVup1OdDQO+uEawm8UG3ESjAVCxZURGWnUl0QIosWd150eqLR8SwQ+GbVqqD3YKGxP3livMnRvw=
+  provider: releases
+  api_key:
+    secure: VfiUi5K+QUR1pqvsWLXhH6bBP3EsmlrObX2u8K836xB8JRTQFo0aMzVZqRv56/xM4PvN7diTq/UWOG+vx9FsEdqlgbiaYfoc+0vBCh9cfVtBMx/9phykupDw+/S2F6+ta0Ps5aMmkmDndoqs6Rh4ow83TPuiNKiMrZrV73rTK8556c8lAoBidqPYvMVpdVCBVijqhsWfAUrr7N9EcnirRsM8vTmFk7N5iEE58icGc2ZmBlYapKPTsRi2lpSCvUkubyGoqkunwqtRWPjGnpPeY+2Lv3w43W9E63XHQ0CBAIFf87AWFangsF/7kVwGsG24+2BFKS/P7ebyMH4HKTJlfJulM7IBQSCvmhlY8La2G/HVenVxqaIEmaPepc7yqW0LWeYWiGSoeGbtx27n955JOWRBFX8+T/BpSryGFTSr4sg1+pBoL8frbM1vDz5kToZiULa7u05d2BC3e8DclsV0QdI2q+N/N82NgDVqEcHt5V7pBfQUYMybqk5QrigCSHWN9zDDQGKJBLO+NojwQCYEuM8Pels1tfb/CSVyJdP3VmakdSA69ZO2A6XTzACol6Uh5pxMe67kwyYVt3s4A4l8HiK/KRsZFhENgbHGgs9yIklYfOFdL7IiJ5hHyS/uiWs7s2yUB9eSk41cuLTxihVvpdS/V7gIK9kOg7KG7ZnfQcg=
+  file: ''
   on:
     repo: limix/scipy-sugar
-    branch: master
-    tags: true
+    branch: branch
 env:
   global:
-    - secure: enuW0ZSAo3Wpw58yk6lcSrLP6wgA9zT3/us5nosY/g6UF3//WjdslIB2qfuLv2gCZ5cH4Q2WDXRcXVijnqrruMHHjCpaXWWC5GGVjYWqtdc1OkIIFSKsxqKIVc8ykK7unONgH//vYmQc17M50li/bUveBz1tfnR8empQGtDttNuul313R5o6YLPtWzjJvd/FL1kX1ELa0DMha+pOCBhPLYZZMnxnYtaNqZQYUHnQKA+pnFYQ0icuSfCIbe0LsQShdz8zAuv6F0MXh+f0/kP1Hq74BZORA44zqlpJRARM98ov/jdj65TNA6+D8tVA3ksJlYzxlmA9dJ6LsIU6Y9cncfGis1UsEyP/j/MfJxw3O1KPoVDC+7QLWbbe7zLVK3HLRmhGZk6yWB+X+S01IiJdRqY++A1iJO7Jrkb3eFp/d9i8iDYiFgCHbItbHeKCY0f2RuR4TEwiaInBfpVsgINWJrOsw3W9Y/HFeF1RzvHVjqHFToruoz1i7ZPTZsUWJdVYG4qyEOs8BNdmPlQTzLp3lOtcULP91Bze+s8IlV4m3GPC4I6CXrIiI7+hbEsWhjpNJ1fsJIQVlGFnQzHT2F52jXWOrEKB7JeZx6emtZgOeQq8+dcXsMHU7x7SySalW7Tf+Qq4GjF1tYcH1q4KNuYUSuV7D7hI3yl8S0GKvLha5k0=
-    - PKG_NAME=scipy_sugar
+  - secure: enuW0ZSAo3Wpw58yk6lcSrLP6wgA9zT3/us5nosY/g6UF3//WjdslIB2qfuLv2gCZ5cH4Q2WDXRcXVijnqrruMHHjCpaXWWC5GGVjYWqtdc1OkIIFSKsxqKIVc8ykK7unONgH//vYmQc17M50li/bUveBz1tfnR8empQGtDttNuul313R5o6YLPtWzjJvd/FL1kX1ELa0DMha+pOCBhPLYZZMnxnYtaNqZQYUHnQKA+pnFYQ0icuSfCIbe0LsQShdz8zAuv6F0MXh+f0/kP1Hq74BZORA44zqlpJRARM98ov/jdj65TNA6+D8tVA3ksJlYzxlmA9dJ6LsIU6Y9cncfGis1UsEyP/j/MfJxw3O1KPoVDC+7QLWbbe7zLVK3HLRmhGZk6yWB+X+S01IiJdRqY++A1iJO7Jrkb3eFp/d9i8iDYiFgCHbItbHeKCY0f2RuR4TEwiaInBfpVsgINWJrOsw3W9Y/HFeF1RzvHVjqHFToruoz1i7ZPTZsUWJdVYG4qyEOs8BNdmPlQTzLp3lOtcULP91Bze+s8IlV4m3GPC4I6CXrIiI7+hbEsWhjpNJ1fsJIQVlGFnQzHT2F52jXWOrEKB7JeZx6emtZgOeQq8+dcXsMHU7x7SySalW7Tf+Qq4GjF1tYcH1q4KNuYUSuV7D7hI3yl8S0GKvLha5k0=
+  - PKG_NAME=scipy_sugar
