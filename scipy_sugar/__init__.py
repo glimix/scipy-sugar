@@ -1,28 +1,14 @@
-from __future__ import absolute_import as _absolute_import
+from __future__ import absolute_import as _
 
-from pkg_resources import get_distribution as _get_distribution
-from pkg_resources import DistributionNotFound as _DistributionNotFound
 from . import stats
+from ._test import test
 
-try:
-    __version__ = _get_distribution('scipy_sugar').version
-except _DistributionNotFound:
-    __version__ = 'unknown'
+__name__ = "scipy-sugar"
+__version__ = "1.0.3"
+__author__ = "Danilo Horta"
+__author_email__ = "horta@ebi.ac.uk"
 
-
-def test():
-    import os
-    p = __import__('scipy_sugar').__path__[0]
-    src_path = os.path.abspath(p)
-    old_path = os.getcwd()
-    os.chdir(src_path)
-
-    try:
-        return_code = __import__('pytest').main(['-q', '--doctest-modules'])
-    finally:
-        os.chdir(old_path)
-
-    if return_code == 0:
-        print("Congratulations. All tests have passed!")
-
-    return return_code
+__all__ = [
+    "__name__", "__version__", "__author__", "__author_email__", "test",
+    "stats"
+]

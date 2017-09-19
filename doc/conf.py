@@ -1,37 +1,58 @@
-try:
-    import scipy_sugar
-    version = scipy_sugar.__version__
-except ImportError:
-    version = 'unknown'
+from __future__ import unicode_literals
+
+import re
+from importlib import import_module
+from os import getenv
+from os.path import dirname, join, realpath
+from time import strftime
+
+import sphinx_rtd_theme
+from setuptools import find_packages
+
+
+def get_init_metadata(name):
+    expr = re.compile(r"__%s__ *= *\"(.*)\"" % name)
+
+    dir_path = dirname(realpath(__file__))
+    pkgname = find_packages(where=join(dir_path, '..'))[0]
+
+    data = open(join("..", pkgname, "__init__.py")).read()
+
+    return re.search(expr, data).group(1).strip()
+
+
+if getenv("READTHEDOCS", "False") == "True":
+
+    prjname = getenv("READTHEDOCS_PROJECT", "unknown")
+    pkgname = prjname.replace("-", "_")
+    pkg = import_module(pkgname)
+
+    project = pkg.__name__
+    version = pkg.__version__
+    author = pkg.__author__
+else:
+    project = get_init_metadata('name')
+    version = get_init_metadata('version')
+    author = get_init_metadata('author')
 
 extensions = [
-    'sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.intersphinx',
-    'sphinx.ext.viewcode'
+    'sphinx.ext.autodoc',
+    'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.coverage',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.napoleon',
 ]
 napoleon_google_docstring = True
-templates_path = ['_templates']
-source_suffix = '.rst'
 master_doc = 'index'
-project = 'scipy-sugar'
-copyright = '2017, Danilo Horta'
-author = 'Danilo Horta'
+copyright = '%s, %s' % (strftime("%Y"), author)
 release = version
-language = None
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+language = "en"
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'conf.py']
 pygments_style = 'sphinx'
-todo_include_todos = False
-html_theme = 'default'
-html_static_path = ['_static']
-htmlhelp_basename = 'scipy-sugardoc'
-latex_elements = {}
-latex_documents = [
-    (master_doc, 'scipy-sugar.tex', 'scipy-sugar Documentation',
-     'Danilo Horta', 'manual'),
-]
-man_pages = [(master_doc, 'scipy-sugar', 'scipy-sugar Documentation', [author],
-              1)]
-texinfo_documents = [
-    (master_doc, 'scipy-sugar', 'scipy-sugar Documentation', author,
-     'scipy-sugar', 'One line description of project.', 'Miscellaneous'),
-]
-intersphinx_mapping = {'https://docs.python.org/': None}
+html_theme = 'sphinx_rtd_theme'
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+intersphinx_mapping = {
+    'python': ('http://docs.python.org/', None),
+    'numpy': ('http://docs.scipy.org/doc/numpy/', None)
+}
