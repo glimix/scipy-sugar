@@ -12,7 +12,6 @@ cache:
 matrix:
   include:
   - python: 2.7
-  - python: 3.5
   - python: 3.6
   - env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
   - os: osx
@@ -20,13 +19,12 @@ matrix:
     env: PYENV=py27
   - os: osx
     language: generic
-    env: PYENV=py35
-  - os: osx
-    language: generic
     env: PYENV=py36
 before_install:
 - travis_retry bash <(curl -s https://raw.githubusercontent.com/limix/travis-tools/master/get-travis-tools.sh)
 - travis_retry travis/before-install.sh
+install:
+    - travis_retry travis/install.sh
 script:
 - travis_retry travis/script.sh
 after_success:
@@ -46,4 +44,3 @@ env:
   global:
     - secure: bstlWhD2AA7TJmy1Tv1OfMW8gogwCCd0nSxCFk3QMBC2/o33K55AQjZkyG/kmQWjO2mduWQmx9SdXshJzTT2SRhJW53VO2Op4YBJO4l57NPE9R3ggcIGsw4vsAXBCVkRyQRxhMmadRKajHWJjkf8IfbVKb4RRIqJT/dQCcD7kOhgGHKLI9/eBCoIVkZLFCdhEeGKaHQxeTqOOmmIhjAFIXh0sCkM4Av3UHR72/eKrLOR4iyOECfLXFFVR5jMcDwqFrcqFTGVBaAA7UZtJuO8qVMDb/qi9HfCTKVotj8vYFM32nu037Y+Mf1IH5aW/Z4oiscsxARY7Diq6le2lFBG96IvzLdeUElLCZO8zzAfRiUryOAorDH5PbwbOPG0t/WNK8ys5RNcd95rL/h4haKn3BrcOhWhaUCerC1uxqbOQO7mknz52GjPlT+3MHjymqmLBBDKRY2fXfLVk1jUnaVC0ZuXHscoKr8f8e4wXkRrznYy2RRnm3k7X2X7kLCUN0FmxfMgsQK12yPQtKgBGo/0lnTMFEWBnHEDLipnFFYMFNlnLr4EN7yk1un2R1m1W0HIb/plqerULnPlp/aH/QpJyVSQo6T5b4WELHirqnPZTQO8wDQPajyWQAqc83D3yD+X8WXZYOGTe5TwyvS7byAw8udxZAgocJ2C19idohqaGHA=
     - PKG_NAME=scipy_sugar
-    - PY_DEPS="ncephes scipy"
