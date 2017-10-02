@@ -1,7 +1,7 @@
 from __future__ import absolute_import as _
 
 from . import stats
-from ._test import test
+from .testit import test
 
 __name__ = "scipy-sugar"
 __version__ = "1.0.3"

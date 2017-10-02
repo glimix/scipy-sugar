@@ -42,8 +42,8 @@ Authors
 License
 -------
 
-This project is licensed under the MIT License - see the `License file`_ file
-for details.
+This project is licensed under the MIT License - see the `License file`_ for
+details.
 
 .. |Build-Status| image:: https://travis-ci.org/limix/scipy-sugar.svg?branch=master
     :target: https://travis-ci.org/limix/scipy-sugar
