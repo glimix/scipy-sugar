@@ -1,10 +1,10 @@
 from __future__ import absolute_import as _
 
 from . import stats
-from ._test import test
+from .testit import test
 
 __name__ = "scipy-sugar"
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 __author__ = "Danilo Horta"
 __author_email__ = "horta@ebi.ac.uk"
 
