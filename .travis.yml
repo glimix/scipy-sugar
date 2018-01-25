@@ -3,16 +3,25 @@ language: python
 sudo: false
 python: 3.6
 env:
-  - PKG_NAME=optimix
+- PKG_NAME=optimix
 addons:
   apt:
     packages:
     - pandoc
 script:
-  - bash <(curl -fsSL https://raw.githubusercontent.com/horta/ci/master/travis.sh)
+- bash <(curl -fsSL https://raw.githubusercontent.com/horta/ci/master/travis.sh)
 notifications:
   email:
     recipients:
     - danilo.horta@gmail.com
     on_success: never
     on_failure: always
+deploy:
+  provider: pypi
+  user: dhorta
+  password:
+    secure: cR2NIP3fEWswnxiNxV5dU1AYYKs9Rb4yWjUMjBROgSjsEOHlw70AAooCOiH+JdU4Q5dg9+oKXf6c9oFleaqWKAZaRusrFdNAOrbxSVu11wk9I8q1BCxUoMplcLDFSxL5PtUOUnQczAHFZG9wDf7+iaD2C6BgxVTox5wITrFomsAfef6mf5iyOvqTsUFDCvCus6JUFS6tZ8yLOzD5QEQxZxECZbTfot/QutuaJc0EuNwmVqbhqPrfVmNe92lQX7vy3a9w4mDKxtbyLzewAx8XA50FjXXFFNRV7dK0N+aqzOCI9a2vmcIuBXP17d6OPg74Yz4cEQCXs5324rTZHEtYyjshO3cofhYss+OJjGbLFuh92oyafjLZMw0QLk6bmBbIFHurMH/cy8dyCl+Ix8vTv2m8bKPrGkmFrLcPnySdXpYzMYh+RJeVJsO1ERLmifh6nF4DHtICpls9tfBtmvsiI0/c1Di4ykjieMgugw+7Z7G+ZVdTvidDNTIdzmMa/T8LUuN3w7U7JyPcDaqU5n1UZ2izAFYizVtqwLdd/d3j5WQz7123LG0ZwP/+znK62aOmThqBqxJxA/y1uHo0x5X+UcZJcmy37pUuvXyJFoq/UerFiwvIM1/GNMU6x095Vl0af30Rfl0iYdaVNG8U0ht0hS8wbh3HU8pbPWbdKVEbe24=
+  on:
+    tags: true
+    repo: limix/scipy-sugar
+    branch: master
