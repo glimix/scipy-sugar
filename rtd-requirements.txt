@@ -1,4 +1,0 @@
-numpy
-scipy>=0.19.1
-setuptools
-sphinx_rtd_theme
