@@ -1,43 +1,18 @@
+os: linux
 language: python
-services: docker
-git:
-  depth: 5
-matrix:
-  include:
-  - python: 2.7
-  - python: 3.6
-  - env: DOCKER_IMAGE=quay.io/pypa/manylinux1_x86_64
-  - os: osx
-    language: generic
-    env: PYENV=py27
-  - os: osx
-    language: generic
-    env: PYENV=py36
-before_install:
-- travis_retry bash <(curl -s https://raw.githubusercontent.com/limix/travis-tools/master/get-travis-tools.sh)
-- travis_retry travis/before-install.sh
-install:
-- travis_retry travis/install.sh
+sudo: false
+python: 3.6
+env:
+  - PKG_NAME=optimix
+addons:
+  apt:
+    packages:
+    - pandoc
 script:
-- travis_retry travis/script.sh
-after_success:
-- travis_retry travis/after-success.sh
+  - bash <(curl -fsSL https://raw.githubusercontent.com/horta/ci/master/travis.sh)
 notifications:
   email:
     recipients:
     - danilo.horta@gmail.com
-    on_success: change
+    on_success: never
     on_failure: always
-deploy:
-  provider: pypi
-  user: dhorta
-  password:
-    secure: Fg6zTcl4I6WK4m29VzJJLKLMQ30nOIRPgiUAN0dHHN0XcxZYuLvtxM3me1AlaRnMC4ALM5w+NWzXZt/n3P0ZXI4KtCunv+d0M6HITZYjluJfG595o7BsLItA7ZLSU6+EHRpKpLXKaD7brQcjr4Hdjdy+ty2rZaTcJIfoe2zoI1Vap/wDrzwvx90ob83JY2ZoAA9nnR8Kk4UkkULLbkqh/V9vn9fRlo/R6e0WzkmDDObXFUxeYsJQWaTsZ70d2gvpeGq+u8mLYe2udm2zIW8xCfDpwH2M15tNRppMlzuDwJmP65zFI8AQcg20Wz22skMQ4fvSW6DUTEl5UXHEcc+RyZWr4Ek0L7CvzVkdxWV2H7rGt6vCIq/I8KJGcpJcM0/vibONp1evIPaqRtgzix8EbNw9ypejd2x57AUoDmke5mR/SrIx0f7aMFWMXpYax6eXRQHIALBo35wcjdZXMCCBEjiHpY5FkHZaSylhEKA42ZKjMSQJnUMCVvjLxXMWzvnZfNz3uPm+PAFrSRkgasWPEnQT9/51QCikjbm0gmGwP7mUD3l7z8EYpSYEKtZrOyLLZkRvpM/N+0ALeXKzeH11bC5fk1LpMzw3uqTapxcYUNvOvo6f82A99vt6Mmxir0v5Xkpe6I34qhuikZPgREPLe8KF3QB85321zsdg5zOpiF8=
-  on:
-    tags: true
-    repo: limix/scipy-sugar
-    branch: master
-env:
-  global:
-  - secure: enuW0ZSAo3Wpw58yk6lcSrLP6wgA9zT3/us5nosY/g6UF3//WjdslIB2qfuLv2gCZ5cH4Q2WDXRcXVijnqrruMHHjCpaXWWC5GGVjYWqtdc1OkIIFSKsxqKIVc8ykK7unONgH//vYmQc17M50li/bUveBz1tfnR8empQGtDttNuul313R5o6YLPtWzjJvd/FL1kX1ELa0DMha+pOCBhPLYZZMnxnYtaNqZQYUHnQKA+pnFYQ0icuSfCIbe0LsQShdz8zAuv6F0MXh+f0/kP1Hq74BZORA44zqlpJRARM98ov/jdj65TNA6+D8tVA3ksJlYzxlmA9dJ6LsIU6Y9cncfGis1UsEyP/j/MfJxw3O1KPoVDC+7QLWbbe7zLVK3HLRmhGZk6yWB+X+S01IiJdRqY++A1iJO7Jrkb3eFp/d9i8iDYiFgCHbItbHeKCY0f2RuR4TEwiaInBfpVsgINWJrOsw3W9Y/HFeF1RzvHVjqHFToruoz1i7ZPTZsUWJdVYG4qyEOs8BNdmPlQTzLp3lOtcULP91Bze+s8IlV4m3GPC4I6CXrIiI7+hbEsWhjpNJ1fsJIQVlGFnQzHT2F52jXWOrEKB7JeZx6emtZgOeQq8+dcXsMHU7x7SySalW7Tf+Qq4GjF1tYcH1q4KNuYUSuV7D7hI3yl8S0GKvLha5k0=
-  - PKG_NAME=scipy_sugar
