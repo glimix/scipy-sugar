@@ -1,7 +1,6 @@
 from __future__ import absolute_import, division
 
 from numpy import asarray, empty_like, isfinite
-from scipy.stats import norm, rankdata
 
 
 def quantile_gaussianize(x):
@@ -21,6 +20,7 @@ def quantile_gaussianize(x):
         >>> print(quantile_gaussianize([-1, 0, 2]))
         [-0.67448975  0.          0.67448975]
     """
+    from scipy.stats import norm, rankdata
 
     x = asarray(x, float).copy()
     ok = isfinite(x)

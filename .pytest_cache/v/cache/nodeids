@@ -1,6 +1,0 @@
-[
-  "scipy_sugar/stats/_normalize.py::scipy_sugar.stats._normalize.quantile_gaussianize",
-  "scipy_sugar/stats/test/test_normalize.py::test_quantile_gaussianize",
-  "scipy_sugar/stats/test/test_normalize.py::test_quantile_gaussianize_unique",
-  "scipy_sugar/stats/test/test_normalize.py::test_quantile_gaussianize_empty"
-]
